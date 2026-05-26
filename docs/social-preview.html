@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1280px; height:640px; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    width:1280px; height:640px; overflow:hidden;
+    background: radial-gradient(circle at 78% 28%, #2f6b3f 0%, #1d4429 45%, #112a19 100%);
+    color:#fff; position:relative;
+  }
+  /* decorative leaves */
+  .leaf { position:absolute; font-size:340px; opacity:.06; }
+  .leaf.a { top:-70px; right:-30px; transform:rotate(18deg); }
+  .leaf.b { bottom:-120px; left:-60px; transform:rotate(-22deg); }
+  .wrap { position:relative; z-index:2; height:100%; padding:78px 90px; display:flex; flex-direction:column; justify-content:center; }
+  .badge {
+    display:inline-flex; align-items:center; gap:10px; align-self:flex-start;
+    background:rgba(212,175,90,.16); border:1px solid rgba(212,175,90,.5);
+    color:#e8c879; font-weight:700; letter-spacing:3px; font-size:18px;
+    padding:9px 20px; border-radius:40px; text-transform:uppercase;
+  }
+  h1 { font-size:84px; line-height:1.02; font-weight:800; margin:26px 0 6px; letter-spacing:-1px; }
+  h1 .grn { color:#9bdcab; }
+  .sub { font-size:30px; font-weight:600; color:#d7e7d9; margin-bottom:22px; }
+  .desc { font-size:25px; line-height:1.5; color:#bcd1be; max-width:880px; margin-bottom:40px; }
+  .tags { display:flex; gap:14px; flex-wrap:wrap; }
+  .tag {
+    font-size:21px; font-weight:600; color:#eaf6ec;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+    padding:11px 24px; border-radius:14px;
+  }
+  .logo { position:absolute; top:64px; right:90px; z-index:2; display:flex; align-items:center; gap:14px; }
+  .logo .ic { width:74px; height:74px; border-radius:50%; background:linear-gradient(135deg,#3a8a52,#1d4429);
+    display:flex; align-items:center; justify-content:center; font-size:42px; box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  .logo .nm { font-size:26px; font-weight:800; }
+  .logo .nm small { display:block; font-size:15px; font-weight:500; color:#9bdcab; letter-spacing:1px; }
+</style>
+</head>
+<body>
+  <div class="leaf a">🌿</div>
+  <div class="leaf b">🍃</div>
+
+  <div class="logo">
+    <div class="ic">🌿</div>
+    <div class="nm">Herbal Roots<small>NATURAL WELLNESS</small></div>
+  </div>
+
+  <div class="wrap">
+    <span class="badge">🛒 E-Commerce</span>
+    <h1>Herbal <span class="grn">Roots</span></h1>
+    <div class="sub">Full-Stack Herbal Products Store</div>
+    <div class="desc">Animated storefront with slide-out AJAX cart, Stripe checkout, auth, an AI support chatbot and an admin dashboard — built with Laravel 12.</div>
+    <div class="tags">
+      <span class="tag">Laravel 12</span>
+      <span class="tag">PHP</span>
+      <span class="tag">MySQL</span>
+      <span class="tag">Stripe</span>
+      <span class="tag">Tailwind</span>
+      <span class="tag">OpenAI</span>
+    </div>
+  </div>
+</body>
+</html>
