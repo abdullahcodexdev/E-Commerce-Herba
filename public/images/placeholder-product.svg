@@ -1,0 +1,15 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5faf9"/><stop offset="1" stop-color="#e3efed"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#pbg)"/>
+  <rect x="185" y="150" width="130" height="230" rx="18" fill="#137a6e"/>
+  <rect x="205" y="120" width="90" height="40" rx="10" fill="#0a3a37"/>
+  <rect x="200" y="220" width="100" height="120" rx="8" fill="#f5faf9"/>
+  <path d="M250 250c-14 9-20 22-20 34 18-5 28-18 30-34z" fill="#1b9286"/>
+  <path d="M250 250c14 9 20 22 20 34-18-5-28-18-30-34z" fill="#9fd6c9"/>
+  <text x="250" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#0e4d49">Herbal Roots</text>
+  <text x="250" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#7e8a87">Product Image</text>
+</svg>

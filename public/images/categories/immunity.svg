@@ -1,0 +1,9 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e4d49"/><stop offset="1" stop-color="#137a6e"/></linearGradient></defs>
+<rect width="600" height="400" fill="url(#g)"/>
+<g opacity="0.16" fill="#ffffff"><path d="M470 60c-50 30-70 78-66 124 30-13 56-40 70-70 13-30 8-38-4-54z"/><path d="M90 300c52-26 100-22 138 4-30 22-70 30-108 22-22-5-26-17-30-26z"/></g>
+<circle cx="300" cy="200" r="70" fill="#ffffff1a"/>
+<path d="M300 165c-20 13-28 32-28 48 25-7 40-25 42-48z" fill="#ffffffdd"/>
+<path d="M300 165c20 13 28 32 28 48-25-7-40-25-42-48z" fill="#ffffff77"/>
+<text x="300" y="340" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#ffffff">Immunity</text>
+</svg>

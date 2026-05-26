@@ -1,0 +1,12 @@
+<svg width="260" height="64" viewBox="0 0 260 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lgl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d4ede9"/>
+      <stop offset="1" stop-color="#5fc2b3"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.12)" stroke="#d4ede9" stroke-width="1.5"/>
+  <path d="M32 14c-9 6-13 14-13 22 0 5 3 9 7 11 0-9 3-16 9-22-4 7-5 14-4 22 6-2 10-7 12-13 3-9-2-17-11-20z" fill="url(#lgl)"/>
+  <text x="72" y="30" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="700" fill="#ffffff">Herbal Roots</text>
+  <text x="73" y="48" font-family="Arial, sans-serif" font-size="11" letter-spacing="3" fill="#d9b26a">PURE • NATURAL • ORGANIC</text>
+</svg>
