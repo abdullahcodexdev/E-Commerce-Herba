@@ -3,6 +3,28 @@
 A professional, fully-functional e-commerce website for herbal products, built with **Laravel 12 + MySQL**.
 Earthy green design, smooth animations, hover effects, a slide-out cart, login system and complete checkout.
 
+## 🧰 Tech Stack
+
+| Layer | Technologies |
+|-------|--------------|
+| **Backend** | Laravel 12 (PHP 8.2), MySQL |
+| **Frontend** | Blade templates, Tailwind CSS, Vanilla JavaScript |
+| **Build tools** | Vite, PostCSS, npm |
+| **Auth** | Laravel Breeze |
+| **Payments** | Stripe (Elements + PaymentIntents, test/sandbox mode) |
+
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Frontend-38B2AC?logo=tailwindcss&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)
+![Stripe](https://img.shields.io/badge/Stripe-Payments-635BFF?logo=stripe&logoColor=white)
+
+> 🔒 **Security & privacy:** No real secrets live in this repository. API keys, database
+> credentials and Stripe keys belong **only** in your local `.env` file (git-ignored). Copy
+> `.env.example` → `.env` and fill in your own values. Never commit `.env`, and use only
+> Stripe **test** keys here — production keys must stay private.
+
 ## ✨ Features
 - Attractive animated frontend (scroll reveal, hover effects, morphing hero, floating badges)
 - Product catalog with categories, search, sorting & pagination
