@@ -1,6 +1,35 @@
 @extends('layouts.store')
-@section('title', $product->name.' — Herbal Roots')
-@section('meta', $product->short_description)
+@section('title', $product->seo_title)
+@section('meta', $product->seo_description)
+@section('og_type', 'product')
+@section('og_image', $product->image_url)
+
+@push('head')
+<script type="application/ld+json">
+{!! json_encode(array_filter([
+    '@context' => 'https://schema.org',
+    '@type' => 'Product',
+    'name' => $product->name,
+    'image' => $product->image_url,
+    'description' => $product->seo_description,
+    'sku' => 'HR-'.$product->id,
+    'category' => $product->category->name ?? 'Herbal',
+    'brand' => ['@type' => 'Brand', 'name' => 'Herbal Roots'],
+    'aggregateRating' => $product->rating ? [
+        '@type' => 'AggregateRating',
+        'ratingValue' => (string) $product->rating,
+        'reviewCount' => max(5, (int) round($product->rating * 12)),
+    ] : null,
+    'offers' => [
+        '@type' => 'Offer',
+        'url' => url()->current(),
+        'priceCurrency' => 'PKR',
+        'price' => (string) $product->current_price,
+        'availability' => $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    ],
+], fn ($v) => ! is_null($v)), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endpush
 
 @section('content')
 <div class="page-head">

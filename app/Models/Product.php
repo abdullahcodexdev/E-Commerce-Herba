@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Product extends Model
 {
     protected $fillable = [
-        'category_id', 'name', 'slug', 'short_description', 'description',
+        'category_id', 'name', 'slug', 'meta_title', 'meta_description',
+        'short_description', 'description',
         'benefits', 'price', 'sale_price', 'stock', 'image', 'is_featured', 'rating',
     ];
 
@@ -48,5 +49,19 @@ class Product extends Model
             return asset($this->image);
         }
         return asset('images/placeholder-product.svg');
+    }
+
+    /** SEO <title>: stored meta_title, else a sensible default built from the name. */
+    public function getSeoTitleAttribute(): string
+    {
+        return $this->meta_title ?: ($this->name.' — Herbal Roots');
+    }
+
+    /** SEO meta description: stored value, else short_description, else a generic line. */
+    public function getSeoDescriptionAttribute(): string
+    {
+        $text = $this->meta_description ?: ($this->short_description ?: $this->description);
+
+        return \Illuminate\Support\Str::limit(strip_tags((string) $text) ?: 'Premium organic herbal product from Herbal Roots.', 160);
     }
 }

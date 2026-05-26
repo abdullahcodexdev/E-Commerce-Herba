@@ -6,7 +6,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Herbal Roots — Pure & Natural Herbal Products')</title>
     <meta name="description" content="@yield('meta', 'Premium organic herbal supplements, oils and remedies — pure, natural and ethically sourced.')">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    {{-- Open Graph / social sharing --}}
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:site_name" content="Herbal Roots">
+    <meta property="og:title" content="@yield('title', 'Herbal Roots — Pure & Natural Herbal Products')">
+    <meta property="og:description" content="@yield('meta', 'Premium organic herbal supplements, oils and remedies — pure, natural and ethically sourced.')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="@yield('og_image', asset('images/logo.svg'))">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
+    @stack('head')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">

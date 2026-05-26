@@ -1,5 +1,25 @@
 @extends('layouts.store')
 @section('title', 'Herbal Roots — Pure & Natural Herbal Products')
+@section('meta', 'Shop premium organic herbal supplements, oils and remedies at Herbal Roots — pure, natural, lab-tested and ethically sourced. Cash on Delivery across Pakistan.')
+
+@push('head')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Organization',
+    'name' => 'Herbal Roots',
+    'url' => url('/'),
+    'logo' => asset('images/logo.svg'),
+    'description' => 'Premium organic herbal supplements, oils and remedies — pure, natural and ethically sourced.',
+    'contactPoint' => [
+        '@type' => 'ContactPoint',
+        'telephone' => '+92-300-1234567',
+        'contactType' => 'customer service',
+        'areaServed' => 'PK',
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endpush
 
 @section('content')
 <!-- HERO -->

@@ -82,6 +82,19 @@
                     </div>
                 </div>
 
+                <fieldset style="border:1px solid #e3e9e0;border-radius:10px;padding:1rem;margin:0 0 1rem">
+                    <legend style="padding:0 .5rem;color:var(--green-700);font-weight:600">🔎 SEO (search engines)</legend>
+                    <div class="field">
+                        <label>Meta title <span class="muted" style="font-size:.78rem">(max ~60 chars)</span></label>
+                        <input type="text" name="meta_title" id="f_metatitle" value="{{ old('meta_title', $product->meta_title) }}" maxlength="255">
+                    </div>
+                    <div class="field">
+                        <label>Meta description <span class="muted" style="font-size:.78rem">(max ~155 chars)</span></label>
+                        <textarea name="meta_description" id="f_metadesc" rows="2" maxlength="320">{{ old('meta_description', $product->meta_description) }}</textarea>
+                    </div>
+                    <p class="muted" style="font-size:.8rem;margin:0">Leave blank to auto-use the product name &amp; short description.</p>
+                </fieldset>
+
                 <div class="field">
                     <label>Image path (e.g. images/products/p1.svg)</label>
                     <input type="text" name="image" value="{{ old('image', $product->image) }}" placeholder="images/products/yourfile.jpg">
@@ -139,7 +152,9 @@
             if (data.short_description) document.getElementById('f_short').value = data.short_description;
             if (data.description)       document.getElementById('f_desc').value = data.description;
             if (data.benefits)          document.getElementById('f_benefits').value = data.benefits;
-            msg.textContent = '✓ Done — review &amp; edit before saving.';
+            if (data.meta_title)        document.getElementById('f_metatitle').value = data.meta_title;
+            if (data.meta_description)  document.getElementById('f_metadesc').value = data.meta_description;
+            msg.textContent = '✓ Done — review & edit before saving.';
         } catch (e) {
             msg.textContent = 'Connection error. Try again.';
         } finally {

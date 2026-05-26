@@ -56,4 +56,25 @@ return [
         'model' => env('OPENAI_MODEL', 'gpt-4o-mini'),    // fast + low cost; good for chat
     ],
 
+    /*
+    | Twilio — SMS (incoming/outgoing) and Voice calls. OPTIONAL & PLACEHOLDER.
+    | Leave blank until you buy a Twilio number; the SmsService / VoiceService
+    | stay disabled and never break the app. Sign up at https://twilio.com.
+    */
+    'twilio' => [
+        'sid'    => env('TWILIO_SID'),
+        'token'  => env('TWILIO_AUTH_TOKEN'),
+        'from'   => env('TWILIO_FROM'),         // your Twilio phone number, e.g. +1234567890
+    ],
+
+    /*
+    | Voice AI agent (e.g. Vapi.ai / Bland.ai) for AI-answered phone calls.
+    | OPTIONAL & PLACEHOLDER — leave blank until you set up a provider.
+    */
+    'voice_ai' => [
+        'key'        => env('VOICE_AI_KEY'),
+        'agent_id'   => env('VOICE_AI_AGENT_ID'),
+        'webhook'    => env('VOICE_AI_WEBHOOK'),
+    ],
+
 ];

@@ -30,11 +30,13 @@ class AdminProductController extends Controller
 
         $reply = $ai->chat([
             ['role' => 'system', 'content' =>
-                'You are an e-commerce copywriter for a Pakistani herbal-products store. '.
+                'You are an e-commerce copywriter & SEO specialist for a Pakistani herbal-products store. '.
                 'Return ONLY valid JSON (no markdown) with exactly these keys: '.
                 '"short_description" (one catchy sentence, max 140 chars), '.
                 '"description" (2-3 informative sentences, no medical claims), '.
-                '"benefits" (3-5 short benefit phrases separated by commas). '.
+                '"benefits" (3-5 short benefit phrases separated by commas), '.
+                '"meta_title" (SEO title, max 60 chars, include the product name), '.
+                '"meta_description" (SEO meta description, max 155 chars, compelling for search results). '.
                 'Keep wellness claims general and safe.',
             ],
             ['role' => 'user', 'content' => "Product name: {$data['name']}\nCategory: {$category}"],
@@ -56,6 +58,8 @@ class AdminProductController extends Controller
             'short_description' => $parsed['short_description'] ?? '',
             'description'       => $parsed['description'] ?? '',
             'benefits'          => $parsed['benefits'] ?? '',
+            'meta_title'        => $parsed['meta_title'] ?? '',
+            'meta_description'  => $parsed['meta_description'] ?? '',
         ]);
     }
 
@@ -139,6 +143,8 @@ class AdminProductController extends Controller
         return $request->validate([
             'category_id'       => 'required|exists:categories,id',
             'name'              => 'required|string|max:255',
+            'meta_title'        => 'nullable|string|max:255',
+            'meta_description'  => 'nullable|string|max:320',
             'short_description' => 'nullable|string|max:500',
             'description'       => 'nullable|string',
             'benefits'          => 'nullable|string',
