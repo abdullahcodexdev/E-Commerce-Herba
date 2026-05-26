@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\AdminOrderController;
+use App\Http\Controllers\AiChatController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
@@ -18,6 +19,10 @@ Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('contact
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product/{product:slug}', [ShopController::class, 'show'])->name('shop.show');
+
+// AI support chatbot (rate-limited to keep API costs in check)
+Route::post('/ai/chat', [AiChatController::class, 'chat'])
+    ->middleware('throttle:20,1')->name('ai.chat');
 
 // Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -53,6 +58,7 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.status');
 
     // Product management
+    Route::post('/products/ai-generate', [AdminProductController::class, 'aiGenerate'])->name('products.ai');
     Route::resource('products', AdminProductController::class)->except('show');
     // Category management
     Route::resource('categories', AdminCategoryController::class)->except('show');

@@ -5,11 +5,60 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\AiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class AdminProductController extends Controller
 {
+    /**
+     * Generate a product short description, full description and benefits with AI.
+     * Returns JSON consumed by the "✨ Generate with AI" button on the product form.
+     */
+    public function aiGenerate(Request $request, AiService $ai)
+    {
+        $data = $request->validate([
+            'name'     => 'required|string|max:255',
+            'category' => 'nullable|string|max:255',
+        ]);
+
+        if (! $ai->enabled()) {
+            return response()->json(['error' => 'AI is not configured. Add OPENAI_API_KEY to .env.'], 422);
+        }
+
+        $category = $data['category'] ?: 'herbal product';
+
+        $reply = $ai->chat([
+            ['role' => 'system', 'content' =>
+                'You are an e-commerce copywriter for a Pakistani herbal-products store. '.
+                'Return ONLY valid JSON (no markdown) with exactly these keys: '.
+                '"short_description" (one catchy sentence, max 140 chars), '.
+                '"description" (2-3 informative sentences, no medical claims), '.
+                '"benefits" (3-5 short benefit phrases separated by commas). '.
+                'Keep wellness claims general and safe.',
+            ],
+            ['role' => 'user', 'content' => "Product name: {$data['name']}\nCategory: {$category}"],
+        ], temperature: 0.7, maxTokens: 400);
+
+        if (! $reply) {
+            return response()->json(['error' => 'Could not generate text. Please try again.'], 502);
+        }
+
+        // Strip accidental code fences, then decode.
+        $json = preg_replace('/^```(?:json)?|```$/m', '', trim($reply));
+        $parsed = json_decode(trim($json), true);
+
+        if (! is_array($parsed)) {
+            return response()->json(['error' => 'AI returned an unexpected format. Please try again.'], 502);
+        }
+
+        return response()->json([
+            'short_description' => $parsed['short_description'] ?? '',
+            'description'       => $parsed['description'] ?? '',
+            'benefits'          => $parsed['benefits'] ?? '',
+        ]);
+    }
+
     public function index(Request $request)
     {
         $query = Product::with('category')->latest();

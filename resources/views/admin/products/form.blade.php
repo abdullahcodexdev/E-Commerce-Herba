@@ -40,19 +40,24 @@
                     </div>
                 </div>
 
+                <div style="margin:.25rem 0 1rem">
+                    <button type="button" id="aiGenBtn" class="btn btn-outline btn-sm">✨ Generate description with AI</button>
+                    <span id="aiGenMsg" class="muted" style="font-size:.82rem;margin-left:.5rem"></span>
+                </div>
+
                 <div class="field">
                     <label>Short description</label>
-                    <input type="text" name="short_description" value="{{ old('short_description', $product->short_description) }}" maxlength="500">
+                    <input type="text" name="short_description" id="f_short" value="{{ old('short_description', $product->short_description) }}" maxlength="500">
                 </div>
 
                 <div class="field">
                     <label>Full description</label>
-                    <textarea name="description" rows="4">{{ old('description', $product->description) }}</textarea>
+                    <textarea name="description" id="f_desc" rows="4">{{ old('description', $product->description) }}</textarea>
                 </div>
 
                 <div class="field">
                     <label>Benefits (one per line or comma-separated)</label>
-                    <textarea name="benefits" rows="3">{{ old('benefits', $product->benefits) }}</textarea>
+                    <textarea name="benefits" id="f_benefits" rows="3">{{ old('benefits', $product->benefits) }}</textarea>
                 </div>
 
                 <div class="grid-2">
@@ -105,4 +110,43 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+(function () {
+    const btn = document.getElementById('aiGenBtn'),
+          msg = document.getElementById('aiGenMsg'),
+          nameEl = document.querySelector('[name="name"]'),
+          catEl = document.querySelector('[name="category_id"]');
+
+    btn.addEventListener('click', async () => {
+        const name = nameEl.value.trim();
+        if (!name) { msg.textContent = 'Enter a product name first.'; nameEl.focus(); return; }
+
+        const category = catEl.options[catEl.selectedIndex]?.text || '';
+        btn.disabled = true;
+        msg.textContent = '✨ Generating…';
+
+        try {
+            const res = await fetch("{{ route('admin.products.ai') }}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': "{{ csrf_token() }}", 'Accept': 'application/json' },
+                body: JSON.stringify({ name, category })
+            });
+            const data = await res.json();
+            if (!res.ok) { msg.textContent = data.error || 'Failed. Try again.'; return; }
+
+            if (data.short_description) document.getElementById('f_short').value = data.short_description;
+            if (data.description)       document.getElementById('f_desc').value = data.description;
+            if (data.benefits)          document.getElementById('f_benefits').value = data.benefits;
+            msg.textContent = '✓ Done — review &amp; edit before saving.';
+        } catch (e) {
+            msg.textContent = 'Connection error. Try again.';
+        } finally {
+            btn.disabled = false;
+        }
+    });
+})();
+</script>
+@endpush
 @endsection

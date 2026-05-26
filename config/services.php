@@ -46,4 +46,14 @@ return [
         'currency' => env('STRIPE_CURRENCY', 'usd'),
     ],
 
+    /*
+    | OpenAI — powers the support chatbot, smart product recommendations and
+    | AI-generated product descriptions. The key is server-side ONLY and must
+    | never be exposed to the browser. Get a key at https://platform.openai.com.
+    */
+    'openai' => [
+        'key'   => env('OPENAI_API_KEY'),                 // sk-proj-... (secret, backend only)
+        'model' => env('OPENAI_MODEL', 'gpt-4o-mini'),    // fast + low cost; good for chat
+    ],
+
 ];

@@ -105,6 +105,9 @@
     </aside>
 
     <div id="toast"></div>
+
+    @include('partials.ai-chat')
+
     <script src="{{ asset('js/site.js') }}"></script>
     @stack('scripts')
 </body>
