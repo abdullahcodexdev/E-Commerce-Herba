@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -53,5 +54,25 @@ class AdminOrderController extends Controller
         $order->update(['status' => $data['status']]);
 
         return back()->with('success', "Order {$order->order_number} marked as {$data['status']}.");
+    }
+
+    /* ------------------------------------------------------------------ */
+    /*  Contact messages inbox                                             */
+    /* ------------------------------------------------------------------ */
+    public function messages()
+    {
+        // Mark all unread as read when the inbox is opened.
+        ContactMessage::where('is_read', false)->update(['is_read' => true]);
+
+        $messages = ContactMessage::latest()->paginate(15);
+
+        return view('admin.messages.index', compact('messages'));
+    }
+
+    public function destroyMessage(ContactMessage $message)
+    {
+        $message->delete();
+
+        return back()->with('success', 'Message deleted.');
     }
 }

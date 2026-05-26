@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(['email' => 'admin@herbalroots.pk'], [
             'name' => 'Admin', 'password' => Hash::make('password'),
             'is_admin' => true, 'phone' => '+92 300 1234567', 'city' => 'Lahore',
+            'email_verified_at' => now(),
         ]);
         User::updateOrCreate(['email' => 'demo@herbalroots.pk'], [
             'name' => 'Demo Customer', 'password' => Hash::make('password'),
             'phone' => '+92 311 7654321', 'city' => 'Karachi', 'address' => '12 Garden Road',
+            'email_verified_at' => now(),
         ]);
 
         $categories = [

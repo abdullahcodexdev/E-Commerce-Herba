@@ -10,6 +10,8 @@
 
 <section class="section">
     <div class="container">
+        @include('admin.partials.nav')
+
         <!-- Stats -->
         <div class="stat-grid reveal">
             <div class="stat-card accent"><div class="sv">{{ $stats['total'] }}</div><div class="sl">Total Orders</div></div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmation;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Stripe\Exception\ApiErrorException;
 use Stripe\PaymentIntent;
@@ -197,10 +199,10 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /** Persist an order + its items inside a transaction. */
+    /** Persist an order + its items inside a transaction, then email the customer. */
     protected function createOrder(array $data, bool $paid, string $status, array $extra = []): Order
     {
-        return DB::transaction(function () use ($data, $paid, $status, $extra) {
+        $order = DB::transaction(function () use ($data, $paid, $status, $extra) {
             $order = Order::create(array_merge([
                 'user_id'        => auth()->id(),
                 'order_number'   => 'HR-'.strtoupper(Str::random(8)),
@@ -230,5 +232,14 @@ class CheckoutController extends Controller
 
             return $order;
         });
+
+        // Send the confirmation email — never let a mail failure break checkout.
+        try {
+            Mail::to($order->email)->send(new OrderConfirmation($order->load('items')));
+        } catch (\Throwable $e) {
+            Log::warning('Order confirmation email failed: '.$e->getMessage());
+        }
+
+        return $order;
     }
 }
